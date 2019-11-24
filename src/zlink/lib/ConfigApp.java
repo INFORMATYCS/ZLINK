@@ -6,6 +6,7 @@
 package zlink.lib;
 
 import java.io.FileReader;
+import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
 import org.apache.logging.log4j.LogManager;
@@ -16,17 +17,26 @@ import org.apache.logging.log4j.Logger;
  * @author evert
  */
 public class ConfigApp {
+
     static final Logger logger = LogManager.getLogger(ConfigApp.class);
     static public Properties pSystem;
-    
+
     /**
      * Carga archivo de propiedades
-     * @throws IOException 
+     *
+     * @throws IOException
      */
-    public void loadProperties() throws IOException{
+    public void loadProperties() throws IOException {
         logger.info("Cargando configuracion del sistema");
-        
+
         pSystem = new Properties();
-        pSystem.load(new FileReader("config.properties"));
+
+        File f = new File("config.properties");
+        
+        if (f.exists()) {
+            pSystem.load(new FileReader("config.properties"));
+        } else {
+            pSystem.load(new FileReader("src/config.properties"));
+        }
     }
 }

@@ -6,3 +6,4 @@
 [ERROR] 24/11/2019 11:28:50.483 [main] InicialForm java.lang.Exception: Dalida rapida - java.lang.Exception: Dalida rapida
 [ERROR] 24/11/2019 11:29:30.148 [main] InicialForm - Entering application.
 [ERROR] 24/11/2019 11:29:30.154 [main] InicialForm - java.lang.Exception: Dalida rapida
+[ERROR] 24/11/2019 12:14:03.210 [main] InicialForm - java.io.FileNotFoundException: config.properties (El sistema no puede encontrar el archivo especificado)
