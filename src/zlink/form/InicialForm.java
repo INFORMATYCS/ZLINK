@@ -7,6 +7,7 @@ package zlink.form;
 
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import zlink.lib.ConfigApp;
 
 
 /**
@@ -23,23 +24,22 @@ public class InicialForm extends javax.swing.JFrame {
     public InicialForm() {
         initComponents();
         
-        //logger.entry();
-        logger.error("Entering application.");
+        ConfigApp configApp = new ConfigApp();
         
-        logger.debug("Entering application. debug");
+       
         
-        
-        logger.info("Entering application. info");
-    
+      
         
         try{
-            throw new Exception("Dalida rapida");
+             configApp.loadProperties();
+            
+                        
         }catch(Exception e){
             logger.error(e);
         }
     
     
-    
+        logger.info(configApp.pSystem.getProperty("nameApp"));
     }
 
     /**
