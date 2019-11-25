@@ -39,4 +39,13 @@ public class ConfigApp {
             pSystem.load(new FileReader("src/config.properties"));
         }
     }
+    
+    
+    /**
+     * 
+     * @throws IOException 
+     */
+    public void loadRemote() throws IOException {
+        String appRemote = pSystem.getProperty("appRemote");
+    }
 }

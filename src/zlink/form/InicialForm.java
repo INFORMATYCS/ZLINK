@@ -5,10 +5,12 @@
  */
 package zlink.form;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import zlink.lib.ConfigApp;
-
 
 /**
  *
@@ -17,28 +19,30 @@ import zlink.lib.ConfigApp;
 public class InicialForm extends javax.swing.JFrame {
 
     static final Logger logger = LogManager.getLogger(InicialForm.class);
-    
+
     /**
      * Creates new form InicialForm
      */
     public InicialForm() {
         initComponents();
-        
+
         ConfigApp configApp = new ConfigApp();
-        
-       
-        
-      
-        
-        try{
-             configApp.loadProperties();
-            
-                        
-        }catch(Exception e){
+
+        try {
+            configApp.loadProperties();
+
+            URL url = new URL("http://localhost/zlink/conta.php");
+
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"))) {
+                for (String line; (line = reader.readLine()) != null;) {
+                    System.out.println(line);
+                }
+            }
+
+        } catch (Exception e) {
             logger.error(e);
         }
-    
-    
+
         logger.info(configApp.pSystem.getProperty("nameApp"));
     }
 
