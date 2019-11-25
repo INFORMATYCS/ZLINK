@@ -5,20 +5,15 @@
  */
 package zlink.form;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.URL;
+import command.InicializaAppRun;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
-import zlink.lib.ConfigApp;
 
 /**
  *
  * @author evert
  */
-public class InicialForm extends javax.swing.JFrame {
-
-    static final Logger logger = LogManager.getLogger(InicialForm.class);
+public class InicialForm extends javax.swing.JFrame {   
 
     /**
      * Creates new form InicialForm
@@ -26,24 +21,11 @@ public class InicialForm extends javax.swing.JFrame {
     public InicialForm() {
         initComponents();
 
-        ConfigApp configApp = new ConfigApp();
-
-        try {
-            configApp.loadProperties();
-
-            URL url = new URL("http://localhost/zlink/conta.php");
-
-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"))) {
-                for (String line; (line = reader.readLine()) != null;) {
-                    System.out.println(line);
-                }
-            }
-
-        } catch (Exception e) {
-            logger.error(e);
-        }
-
-        logger.info(configApp.pSystem.getProperty("nameApp"));
+        this.lblEstatus.setText("asdasd");
+        
+        InicializaAppRun inicializaAppRun = new InicializaAppRun(this.lblEstatus);
+        new Thread(inicializaAppRun).run();
+        
     }
 
     /**
@@ -55,17 +37,28 @@ public class InicialForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lblEstatus = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        lblEstatus.setText("...");
+        lblEstatus.setName("lblEstatus"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(lblEstatus)
+                .addContainerGap(357, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(lblEstatus)
+                .addContainerGap(247, Short.MAX_VALUE))
         );
 
         pack();
@@ -107,5 +100,6 @@ public class InicialForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel lblEstatus;
     // End of variables declaration//GEN-END:variables
 }
