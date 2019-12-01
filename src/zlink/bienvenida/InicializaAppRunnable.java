@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package command;
+package zlink.bienvenida;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -16,15 +16,15 @@ import zlink.lib.ConfigApp;
  *
  * @author evert
  */
-public class InicializaAppRun implements Runnable{
-    static final Logger logger = LogManager.getLogger(InicializaAppRun.class);
+public class InicializaAppRunnable implements Runnable{
+    static final Logger logger = LogManager.getLogger(InicializaAppRunnable.class);
     private javax.swing.JLabel monitorEstatus;
     
     /**
      * 
      * @param monitorEstatus 
      */
-    public InicializaAppRun(javax.swing.JLabel monitorEstatus){
+    public InicializaAppRunnable(javax.swing.JLabel monitorEstatus){
         this.monitorEstatus = monitorEstatus;
     }
     
@@ -33,11 +33,14 @@ public class InicializaAppRun implements Runnable{
      */
     public void run() {
         ConfigApp configApp = new ConfigApp();
-
+        int sleepVista = 500;
         try {
-            this.monitorEstatus.setText("Cargando archivo de configuracion");
+            Thread.sleep(1000);
+            
+            this.monitorEstatus.setText("Cargando archivo de configuracion");                                    
             configApp.loadProperties();
 
+            Thread.sleep(sleepVista);
             this.monitorEstatus.setText("Buscando actualizaciones en la red");
             URL url = new URL("http://localhost/zlink/conta.php");
 
@@ -46,10 +49,20 @@ public class InicializaAppRun implements Runnable{
                     System.out.println(line);
                 }
             }
+            
+            try {
+                /* directorio/ejecutable es el path del ejecutable y un nombre */
+                 Runtime obj = Runtime.getRuntime();
+  obj.exec(configApp.pSystem.getProperty("pathApp")); 
+                
+            } catch (Exception e) {
+                /* Se lanza una excepción si no se encuentra en ejecutable o el fichero no es ejecutable. */
+            }
 
             
             logger.info(configApp.pSystem.getProperty("nameApp"));
             
+            Thread.sleep(sleepVista);
             this.monitorEstatus.setText("Terminado");
         } catch (Exception e) {
             this.monitorEstatus.setText("Error durante el proceso."+e.getMessage());

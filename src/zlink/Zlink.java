@@ -5,7 +5,7 @@
  */
 package zlink;
 
-import zlink.form.InicialForm;
+import zlink.bienvenida.InicialForm;
 
 /**
  *
