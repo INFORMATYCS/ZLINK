@@ -17,7 +17,9 @@ public class Zlink {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        new InicialForm().setVisible(true);
+        InicialForm inicialForm = new InicialForm();
+        inicialForm.setLocationRelativeTo(null);
+        inicialForm.setVisible(true);
     }
     
 }

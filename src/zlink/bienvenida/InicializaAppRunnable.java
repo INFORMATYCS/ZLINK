@@ -16,28 +16,29 @@ import zlink.lib.ConfigApp;
  *
  * @author evert
  */
-public class InicializaAppRunnable implements Runnable{
+public class InicializaAppRunnable implements Runnable {
+
     static final Logger logger = LogManager.getLogger(InicializaAppRunnable.class);
     private javax.swing.JLabel monitorEstatus;
-    
+
     /**
-     * 
-     * @param monitorEstatus 
+     *
+     * @param monitorEstatus
      */
-    public InicializaAppRunnable(javax.swing.JLabel monitorEstatus){
+    public InicializaAppRunnable(javax.swing.JLabel monitorEstatus) {
         this.monitorEstatus = monitorEstatus;
     }
-    
+
     /**
-     * 
+     *
      */
     public void run() {
         ConfigApp configApp = new ConfigApp();
         int sleepVista = 500;
         try {
             Thread.sleep(1000);
-            
-            this.monitorEstatus.setText("Cargando archivo de configuracion");                                    
+
+            this.monitorEstatus.setText("Cargando archivo de configuracion");
             configApp.loadProperties();
 
             Thread.sleep(sleepVista);
@@ -50,25 +51,27 @@ public class InicializaAppRunnable implements Runnable{
                 }
             }
             
-            try {
-                /* directorio/ejecutable es el path del ejecutable y un nombre */
-                 Runtime obj = Runtime.getRuntime();
-  obj.exec(configApp.pSystem.getProperty("pathApp")); 
-                
+            String nameApp = configApp.pSystem.getProperty("nameApp");
+            this.monitorEstatus.setText("Lanzando aplicacion "+nameApp+", este un momento...");
+            
+            //~Ejecuta EXE
+            try {                
+                Runtime obj = Runtime.getRuntime();
+                obj.exec(configApp.pSystem.getProperty("pathApp"));
+
             } catch (Exception e) {
                 /* Se lanza una excepción si no se encuentra en ejecutable o el fichero no es ejecutable. */
-            }
+            }            
 
-            
-            logger.info(configApp.pSystem.getProperty("nameApp"));
-            
             Thread.sleep(sleepVista);
             this.monitorEstatus.setText("Terminado");
+            
+            Thread.sleep(sleepVista);
+            System.exit(0);
         } catch (Exception e) {
-            this.monitorEstatus.setText("Error durante el proceso."+e.getMessage());
+            this.monitorEstatus.setText("Error durante el proceso." + e.getMessage());
             logger.error(e);
         }
 
-        
     }
 }
